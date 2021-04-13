@@ -1,0 +1,17 @@
+<%= javascript_pack_tag 'hello', 'data-turbolinks-track': 'reload' %>
+<h1>Hello#index</h1>
+<p>Find me in app/views/hello/index.html.erb</p>
+<%= image_pack_tag 'aprilfool_elephant_color.png' %>
+
+<% @hello.each do |h| %>
+    <%= h.content %>
+<% end %>
+
+<%= form_tag("/hello/create") do %>
+<div class="form">
+    <div class="form-body">
+        <textarea  name="content"></textarea>
+        <input type="submit" value="挨拶を追加">
+    </div>
+</div>
+<% end %>
