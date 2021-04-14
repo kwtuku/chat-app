@@ -24,4 +24,6 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 
+ENV RAILS_ENV=production
+
 CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
