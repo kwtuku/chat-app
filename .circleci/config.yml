@@ -113,9 +113,9 @@ workflows:
               ignore: main
 
   deploy:
-      jobs:
-        - deploy:
-            filters:
-                branches:
-                    only:
-                    - main
+    jobs:
+      - deploy:
+          filters:
+              branches:
+                  only:
+                  - main
