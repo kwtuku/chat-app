@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test_backend:
     docker:
-      - image: circleci/ruby:2.6.5-stretch-node
+      - image: circleci/ruby:2.6.6-stretch-node
         environment:
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
@@ -70,7 +70,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/ruby:2.6.5-stretch-node
+      - image: circleci/ruby:2.6.6-stretch-node
         environment:
           RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     working_directory: ~/repo
