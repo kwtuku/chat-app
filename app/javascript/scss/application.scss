@@ -1,3 +1,15 @@
 @import 'style';
 
 @import "bootstrap/scss/bootstrap";
+
+.mw-md {
+  max-width: 576px;
+}
+
+.alert-notice {
+  @extend .alert-info;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
