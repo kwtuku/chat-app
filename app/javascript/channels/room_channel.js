@@ -1,15 +1,22 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create("RoomChannel", {
-  connected() {
-    // Called when the subscription is ready for use on the server
-  },
+document.addEventListener('turbolinks:load', () => {
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+  window.messageContainer = document.getElementById('message-container')
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
+  if (messageContainer === null) {
+      return
   }
-});
+
+  consumer.subscriptions.create("RoomChannel", {
+      connected() {
+      },
+
+      disconnected() {
+      },
+
+      received(data) {
+          messageContainer.insertAdjacentHTML('beforeend', data['message'])
+      }
+  })
+})
