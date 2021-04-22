@@ -28,4 +28,22 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   scrollToBottom()
+
+  const messageButton = document.getElementById('message-button')
+
+  const button_activation = () => {
+    if (messageContent.value === '') {
+      messageButton.classList.add('disabled')
+    } else {
+      messageButton.classList.remove('disabled')
+    }
+  }
+
+  messageContent.addEventListener('input', () => {
+    button_activation()
+  })
+
+  messageButton.addEventListener('click', () => {
+    messageButton.classList.add('disabled')
+  })
 })

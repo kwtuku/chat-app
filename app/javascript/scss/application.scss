@@ -26,3 +26,9 @@ footer {
   margin: 0 auto;
   background-color: white;
 }
+
+.btn-primary.disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: auto;
+}
