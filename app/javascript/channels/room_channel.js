@@ -41,9 +41,31 @@ document.addEventListener('turbolinks:load', () => {
 
   messageContent.addEventListener('input', () => {
     button_activation()
+    changeLineCheck()
   })
 
   messageButton.addEventListener('click', () => {
     messageButton.classList.add('disabled')
+    changeLineCount(1)
   })
+
+  const maxLineCount = 10
+
+  const getLineCount = () => {
+    return (messageContent.value + '\n').match(/\r?\n/g).length;
+  }
+
+  let lineCount = getLineCount()
+  let newLineCount
+
+  const changeLineCheck = () => {
+    newLineCount = Math.min(getLineCount(), maxLineCount)
+    if (lineCount !== newLineCount) {
+      changeLineCount(newLineCount)
+    }
+  }
+
+  const changeLineCount = (newLineCount) => {
+    messageContent.rows = lineCount = newLineCount
+  }
 })
