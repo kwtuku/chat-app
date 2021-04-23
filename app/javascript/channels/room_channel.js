@@ -65,7 +65,22 @@ document.addEventListener('turbolinks:load', () => {
     }
   }
 
+  const footer = document.getElementById('footer')
+  let footerHeight = footer.scrollHeight
+  let newFooterHeight, footerHeightDiff
+
   const changeLineCount = (newLineCount) => {
     messageContent.rows = lineCount = newLineCount
+
+    newFooterHeight = footer.scrollHeight
+    footerHeightDiff = newFooterHeight - footerHeight
+    if (footerHeightDiff > 0) {
+      messageContainer.style.paddingBottom = newFooterHeight + 'px'
+      window.scrollBy(0, footerHeightDiff)
+    } else {
+      window.scrollBy(0, footerHeightDiff)
+      messageContainer.style.paddingBottom = newFooterHeight + 'px'
+    }
+    footerHeight = newFooterHeight
   }
 })
