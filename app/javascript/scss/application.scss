@@ -1,1 +1,38 @@
 @import 'style';
+
+@import "bootstrap/scss/bootstrap";
+
+.mw-md {
+  max-width: 576px;
+}
+
+.alert-notice {
+  @extend .alert-info;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+#message-container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 1rem 1rem 8rem 1rem;
+}
+
+footer {
+  max-width: 768px;
+  padding: 1rem;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.btn-primary.disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: auto;
+}
+
+#message_content {
+  resize: none;
+}
