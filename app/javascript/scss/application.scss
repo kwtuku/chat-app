@@ -3,7 +3,11 @@
 @import "bootstrap/scss/bootstrap";
 
 .mw-md {
-  max-width: 768px;
+  max-width: 576px;
+}
+
+.mw-xl {
+  max-width: 1200px;
 }
 
 .alert-notice {
