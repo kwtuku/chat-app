@@ -5,7 +5,7 @@
 
   <div class="form-group">
     <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', required: true %>
   </div>
 
   <div class="form-group">
@@ -22,7 +22,7 @@
 
   <div class="form-group">
     <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control' %>
+    <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control', required: true %>
 
     <small class="form-text text-muted"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
   </div>
