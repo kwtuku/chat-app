@@ -6,6 +6,10 @@
   max-width: 576px;
 }
 
+.mw-xl {
+  max-width: 1200px;
+}
+
 .alert-notice {
   @extend .alert-info;
 }
