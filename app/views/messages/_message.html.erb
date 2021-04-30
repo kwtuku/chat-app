@@ -1,4 +1,4 @@
-<div class="message" id="message-<%= message.id %>">
+<div class="message text-break" id="message-<%= message.id %>">
   <p><%= message.id %>: <%= message.user.email %>: <%= l message.created_at, format: '%Y年%-m月%-d日(%a) %H:%M' %></p>
-  <p><%= simple_format(h message.content) %></p>
-</div>
+  <%= simple_format(h message.content) %>
+</div>  
