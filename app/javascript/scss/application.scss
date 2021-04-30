@@ -2,14 +2,6 @@
 
 @import "bootstrap/scss/bootstrap";
 
-.mw-md {
-  max-width: 576px;
-}
-
-.mw-xl {
-  max-width: 1200px;
-}
-
 .alert-notice {
   @extend .alert-info;
 }
@@ -19,16 +11,7 @@
 }
 
 #message-container {
-  max-width: 768px;
-  margin: 0 auto;
-  padding: 1rem 1rem 8rem 1rem;
-}
-
-footer {
-  max-width: 768px;
-  padding: 1rem;
-  margin: 0 auto;
-  background-color: white;
+  margin-bottom: 120px;
 }
 
 .btn-primary.disabled {

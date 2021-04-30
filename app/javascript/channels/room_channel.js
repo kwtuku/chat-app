@@ -65,23 +65,23 @@ document.addEventListener('turbolinks:load', () => {
     }
   }
 
-  const footer = document.getElementById('footer')
-  let footerHeight = footer.scrollHeight
-  let newFooterHeight, footerHeightDiff
+  const form = document.getElementById('form')
+  let formHeight = form.scrollHeight
+  let newFormHeight, formHeightDiff
 
   const changeLineCount = (newLineCount) => {
     messageContent.rows = lineCount = newLineCount
 
-    newFooterHeight = footer.scrollHeight
-    footerHeightDiff = newFooterHeight - footerHeight
-    if (footerHeightDiff > 0) {
-      messageContainer.style.paddingBottom = newFooterHeight + 'px'
-      window.scrollBy(0, footerHeightDiff)
+    newFormHeight = form.scrollHeight
+    formHeightDiff = newFormHeight - formHeight
+    if (formHeightDiff > 0) {
+      messageContainer.style.paddingBottom = newFormHeight + 'px'
+      window.scrollBy(0, formHeightDiff)
     } else {
-      window.scrollBy(0, footerHeightDiff)
-      messageContainer.style.paddingBottom = newFooterHeight + 'px'
+      window.scrollBy(0, formHeightDiff)
+      messageContainer.style.paddingBottom = newFormHeight + 'px'
     }
-    footerHeight = newFooterHeight
+    formHeight = newFormHeight
   }
 
   let oldestMessageId
