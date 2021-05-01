@@ -15,8 +15,6 @@ services:
       - db
     tty: true
     stdin_open: true
-    networks:
-      - sample
 
   db:
     image: postgres:9.6.2-alpine
@@ -28,11 +26,6 @@ services:
     restart: always
     ports:
       - 5432:5432
-    networks:
-      - sample
-
-networks:
-  sample:
 
 volumes:
   pg-data:
