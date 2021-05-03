@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.9'
 services:
   web:
     build: .
@@ -10,13 +10,11 @@ services:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: 1
     ports:
-      - 3000:3000
+      - 3001:3000
     depends_on:
       - db
     tty: true
     stdin_open: true
-    networks:
-      - sample
 
   db:
     image: postgres:9.6.2-alpine
@@ -28,11 +26,6 @@ services:
     restart: always
     ports:
       - 5432:5432
-    networks:
-      - sample
-
-networks:
-  sample:
 
 volumes:
   pg-data:
