@@ -18,6 +18,5 @@ require("channels")
 
 import '../js/application'
 import '../scss/application'
-const images = require.context('../images', true)
 
 require("bootstrap/dist/js/bootstrap")
