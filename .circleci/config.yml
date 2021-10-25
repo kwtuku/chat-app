@@ -20,6 +20,7 @@ jobs:
     docker:
       - image: cimg/ruby:2.6.6-node
       - image: circleci/postgres:9.6.9-alpine
+        name: "db"
         environment:
           POSTGRES_USER: circleci
           POSTGRES_DB: circleci_test_db
