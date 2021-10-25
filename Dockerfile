@@ -1,27 +1,44 @@
-FROM ruby:2.6.6
+FROM ruby:2.6.6-alpine
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get update && \
-    apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+ENV LANG=C.UTF-8 \
+  TZ=Asia/Tokyo \
+  ROOT=/myapp
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+WORKDIR $ROOT
 
-RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y yarn
+RUN apk update && \
+  apk upgrade && \
+  apk add --no-cache \
+  gcc \
+  g++ \
+  libc-dev \
+  libxml2-dev \
+  linux-headers \
+  make \
+  nodejs \
+  postgresql \
+  postgresql-dev \
+  tzdata \
+  yarn \
+  git \
+  bash
 
-RUN apt-get update -qq && \
-    apt-get install -y build-essential \
-    libpq-dev \
-    sudo
+RUN apk add --virtual build-packs --no-cache \
+  build-base \
+  curl-dev
 
-RUN yarn add node-sass
+COPY Gemfile* $ROOT/
 
-WORKDIR /app
-RUN mkdir -p tmp/sockets
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
-RUN bundle install
-COPY . /app
+RUN bundle install -j4
 
-CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
+  apk del build-packs
+
+COPY . $ROOT
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]

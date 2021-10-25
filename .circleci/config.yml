@@ -1,121 +1,55 @@
 version: 2.1
 
+orbs:
+  ruby: circleci/ruby@1.1.0
+  node: circleci/node@2
+
 jobs:
-  test_backend:
+  build:
     docker:
-      - image: circleci/ruby:2.6.6-stretch-node
-        environment:
-          RAILS_ENV: test
-          DB_HOST: 127.0.0.1
-          DB_PASSWORD: ''
-      - image: circleci/postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circleci_testdb
-          POSTGRES_HOST_AUTH_METHOD: trust
-
-    working_directory: ~/repo
-
+      - image: cimg/ruby:2.6.6-node
     steps:
       - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
 
-      - restore_cache:
-          keys:
-            - gem-cache-v1-{{ checksum "~/repo/Gemfile.lock" }}
-            - gem-cache-v1-
-          working_directory: ~/repo
-
-      - run:
-          command: |
-            gem install bundler
-            bundle config set path 'vendor/bundle'
-            bundle install --jobs=4 --retry=3
-          working_directory: ~/repo
-
-      - save_cache:
-          key: gem-cache-v1-{{ checksum "~/repo/Gemfile.lock" }}
-          paths:
-            - ~/repo/backend/vendor/bundle
-          working_directory: ~/repo
-
-      - run:
-          command: bundle exec rails db:create
-          working_directory: ~/repo
-      - run:
-          command: bundle exec rails db:migrate
-          working_directory: ~/repo
-
-      - run:
-          name: create directory to store test results
-          command: mkdir /tmp/test-results
-          working_directory: ~/repo
-
-      - run:
-          name: RSpec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-          working_directory: ~/repo
-
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
-      - store_artifacts:
-          path: /home/circleci/repo/tmp/screenshots
-
-  deploy:
+  test:
+    parallelism: 3
     docker:
-      - image: circleci/ruby:2.6.6-stretch-node
+      - image: cimg/ruby:2.6.6-node
+      - image: circleci/postgres:9.6.9-alpine
         environment:
-          RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-    working_directory: ~/repo
+          POSTGRES_USER: postgres
+          POSTGRES_DB: myapp_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: ""
+      RAILS_ENV: test
     steps:
       - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - run:
-          name: 'Install Heroku CLI, if necessary'
-          command: |
-            if [[ $(command -v heroku) == "" ]]; then
-              curl https://cli-assets.heroku.com/install.sh | sh
-            else
-              echo "Heroku is already installed. No operation was performed."
-            fi
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          name: heroku maintenance on
-          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
-      - run:
-          name: Deploy to Heroku_Production
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
-      - run:
-          name: export rails master key
-          command: |
-            export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
-      - run:
-          name: db migration
-          command: |
-            heroku run rails db:migrate --app ${HEROKU_APP_NAME}
-      - run:
-          name: heroku maintenance off
-          command: heroku maintenance:off --app ${HEROKU_APP_NAME}
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - ruby/rspec-test
 
 workflows:
   version: 2
-  test:
+  build_and_test:
     jobs:
-      - test_backend:
-          filters:
-            branches:
-              ignore: main
-
-  deploy:
-    jobs:
-      - deploy:
-          filters:
-              branches:
-                  only:
-                  - main
+      - build
+      - test:
+          requires:
+            - build
