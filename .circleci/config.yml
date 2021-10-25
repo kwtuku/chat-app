@@ -24,12 +24,13 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: myapp_test
-          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_PASSWORD: ""
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
       PGUSER: postgres
+      PGPASSWORD: ""
       RAILS_ENV: test
     steps:
       - checkout
@@ -39,7 +40,7 @@ jobs:
           cache-key: "yarn.lock"
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          command: dockerize -wait tcp://localhost:5432 -timeout 120m
       - run:
           name: Database setup
           command: bundle exec rails db:schema:load --trace
