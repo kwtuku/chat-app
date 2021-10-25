@@ -15,12 +15,10 @@
 
     <%= render 'layouts/flash_messages' unless (controller.controller_name == 'sessions' && controller.action_name == 'new') %>
 
-    <div class="container-fluid py-4">
+    <main class="container">
       <div class="row justify-content-center">
-        <div class="<%= devise_controller? ? 'col-md-8 col-lg-5' : 'col-lg-8' %>">
-          <%= yield %>
-        </div>
+        <%= yield %>
       </div>
-    </div>
+    </main>
   </body>
 </html>
