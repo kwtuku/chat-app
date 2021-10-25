@@ -277,7 +277,7 @@ DEPENDENCIES
   byebug
   capybara
   devise
-  devise-bootstrap-views (~> 1.0)
+  devise-bootstrap-views
   devise-i18n
   factory_bot_rails
   faker
@@ -286,7 +286,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3)
-  rails-i18n (~> 6.0)
+  rails-i18n
   rspec-rails
   rspec_junit_formatter
   rubocop
