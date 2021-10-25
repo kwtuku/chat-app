@@ -17,7 +17,7 @@ RSpec.describe 'Users', type: :system do
     fill_in 'user[password]', with: alice.password
     click_button 'ログイン'
     expect(page).to have_content 'ログインしました。'
-    find('.close').click
+    find('.btn-close').click
     expect(page).not_to have_content 'ログインしました。'
   end
 end
