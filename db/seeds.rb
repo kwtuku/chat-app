@@ -1,3 +1,5 @@
+Rails.logger = Logger.new($stdout)
+
 user_count = 3
 message_count = 1000
 
@@ -19,4 +21,4 @@ ApplicationRecord.transaction do
   end
   Message.create!(message_list)
 end
-puts '初期データの追加が完了しました！'
+Rails.logger.debug '初期データの追加が完了しました！'

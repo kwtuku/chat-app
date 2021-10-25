@@ -12,6 +12,10 @@ AllCops:
     - tmp/**/*
     - vendor/**/*
 
+Layout/LineLength:
+  Exclude:
+    - config/initializers/devise.rb
+
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
