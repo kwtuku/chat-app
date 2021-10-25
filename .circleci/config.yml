@@ -23,7 +23,7 @@ jobs:
         name: "db"
         environment:
           POSTGRES_USER: circleci
-          POSTGRES_DB: circleci_test_db
+          POSTGRES_DB: myapp_test
           POSTGRES_PASSWORD: ""
     environment:
       BUNDLE_JOBS: "3"
