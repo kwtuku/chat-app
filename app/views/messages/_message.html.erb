@@ -1,14 +1,42 @@
-<div class="container message text-break mb-4" id="message-<%= message.id %>">
-  <div class="row">
-    <div class="col-1">
-      <p>画像が入る予定</p>
+<div class="text-break mb-5 message" id="message-<%= message.id %>">
+  <% if message.user == current_user %>
+    <div class="row justify-content-end">
+      <div class="col-8">
+        <div class="card bg-light text-dark">
+          <div class="card-body">
+            <%= simple_format(h message.content) %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-8">
-      <p><%= message.id %>: <%= message.user.email %></p>
-      <div class="card p-2"><%= simple_format(h message.content) %></div>
+
+    <div class="row justify-content-end">
+      <div class="col-8">
+        <p class="text-end">
+          <%= message_created_at(message.created_at) %>
+        </p>
+      </div>
     </div>
-    <div class="col-2 align-self-end">
-      <%= l message.created_at, format: :short %>
+  <% else %>
+    <div class="row">
+      <div class="col-1 align-self-end">
+        <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+      </div>
+      <div class="col-8">
+        <div class="card">
+          <div class="card-body">
+            <%= simple_format(h message.content) %>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>  
+
+    <div class="row">
+      <div class="col-8 offset-1">
+        <p>
+          <%= message_created_at(message.created_at) %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>

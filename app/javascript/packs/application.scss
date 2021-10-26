@@ -8,16 +8,32 @@
   @extend .alert-danger;
 }
 
-#message-container {
-  margin-bottom: 120px;
-}
-
 .btn-primary.disabled {
   background-color: #6c757d;
   border-color: #6c757d;
   cursor: auto;
 }
 
-#message_content {
+.room-card {
+  $navbar-height: 56px;
+  $my-2-height: 16px;
+
+  height: calc(100vh - $navbar-height - $my-2-height);
+
+  &__users-list {
+    $border-height: 2px;
+
+    height: calc(100vh - $navbar-height - $my-2-height - $border-height);
+  }
+
+  &__msg-container {
+    $card-header-height: 71.5px;
+    $card-footer-height: 71px;
+
+    height: calc(100vh - $navbar-height - $my-2-height - $card-header-height - $card-footer-height);
+  }
+}
+
+.msg-footer__textarea {
   resize: none;
 }
