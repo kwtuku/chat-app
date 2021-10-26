@@ -1,0 +1,12 @@
+<%= link_to room_path(room) do %>
+  <div class="card-body border-bottom">
+    <div class="row">
+      <div class="col-2">
+        <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+      </div>
+      <div class="col-8 align-self-center">
+        <p class="mb-0">Room<%= room.id %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

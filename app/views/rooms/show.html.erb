@@ -1,9 +1,7 @@
 <div class="card my-2 room-card">
   <div class="row">
     <div class="col-4 d-none d-md-none d-lg-block border-end px-0 overflow-auto room-card__users-list">
-      <% 15.times do %>
-        <%= render 'user' %>
-      <% end %>
+      <%= render @rooms %>
     </div>
 
     <div class="col-lg-8 px-0">
@@ -13,7 +11,7 @@
             <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
           </div>
           <div class="col-8 align-self-center">
-            <p class="mb-0">user2</p>
+            <p class="mb-0">Room<%= @room.id %></p>
           </div>
         </div>
       </div>

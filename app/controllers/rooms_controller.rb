@@ -1,6 +1,14 @@
 class RoomsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index]
+
+  def index
+    @rooms = current_user.rooms.all if user_signed_in?
+  end
+
   def show
-    @messages = Message.includes(:user).order(:id).last(100)
+    @rooms = current_user.rooms.all
+    @room = Room.find(params[:id])
+    @messages = @room.messages.includes(:user).order(:id).last(100)
     @message = current_user.messages.build
   end
 
