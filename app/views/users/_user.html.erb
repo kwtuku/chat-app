@@ -1,0 +1,10 @@
+<tr>
+  <th scope="row"><%= user.id %></th>
+  <td><%= user.email %></td>
+  <td>
+    <%= form_with model: entry do |f| %>
+      <%= hidden_field_tag :user_id, user.id %>
+      <%= f.submit 'Roomを作成', class: 'btn btn-success' %>
+    <% end %>
+  </td>
+</tr>

@@ -11,7 +11,7 @@
             <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
           </div>
           <div class="col-8 align-self-center">
-            <p class="mb-0">Room<%= @room.id %></p>
+            <p class="mb-0">Room<%= @room.id %>（<%= @room.user_ids.join(', ') %>）</p>
           </div>
         </div>
       </div>

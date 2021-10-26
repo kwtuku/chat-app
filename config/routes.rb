@@ -4,9 +4,13 @@ Rails.application.routes.draw do
 
   root 'rooms#index'
 
+  resources :entries, only: %i[create]
+
   resources :messages, only: %i[create]
 
   resources :rooms, only: %i[index show]
+
+  resources :users, only: %i[index]
 
   get '/show_additionally', to: 'rooms#show_additionally'
 end
