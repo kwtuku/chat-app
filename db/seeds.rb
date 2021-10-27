@@ -2,9 +2,7 @@ Rails.logger = Logger.new($stdout)
 
 ApplicationRecord.transaction do
   3.times do |n|
-    User.find_or_create_by!(email: "example#{n + 1}@example.com") do |user|
-      user.password = 'fffffr'
-    end
+    User.find_or_create_by!(email: "example#{n + 1}@example.com") { |user| user.password = 'fffffr' }
   end
   Rails.logger.debug 'userを作成'
 

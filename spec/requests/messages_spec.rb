@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Messages', type: :request do
   describe 'POST /messages' do
     let(:room) { create :room }
-    let(:message_params) { { message: attributes_for(:message)} }
+    let(:message_params) { { message: attributes_for(:message) } }
 
     context 'when not signed in' do
       it 'returns a 401 response' do
