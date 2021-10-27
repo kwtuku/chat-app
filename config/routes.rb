@@ -12,9 +12,10 @@ Rails.application.routes.draw do
 
   resources :entries, only: %i[create]
 
-  resources :messages, only: %i[create]
 
-  resources :rooms, only: %i[index show]
+  resources :rooms, only: %i[index show] do
+    resources :messages, only: %i[create]
+  end
 
   resources :users, only: %i[index]
 

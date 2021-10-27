@@ -1,7 +1,9 @@
 class MessagesController < ApplicationController
   def create
-    @message = current_user.messages.create!(message_params)
-    ActionCable.server.broadcast 'room_channel', message: @message.template
+    @message = current_user.messages.new(message_params)
+    @message.room_id = params[:room_id]
+    @message.save
+    # ActionCable.server.broadcast 'room_channel', message: @message.template
   end
 
   private

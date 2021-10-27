@@ -21,7 +21,7 @@
       </div>
 
       <div class="card-body border-top">
-        <%= form_with model: @message, local: false, id: 'form' do |f| %>
+        <%= form_with model: [@room, @message], local: false, id: 'form' do |f| %>
           <div class="row">
             <div class="col-10">
               <%= f.text_area :content, class: 'form-control msg-footer__textarea', rows: '1', maxlength: '500' %>
