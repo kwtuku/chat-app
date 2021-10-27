@@ -7,10 +7,11 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :rooms, through: :entries
 
-  def create_room_with(other_user)
+  def create_direct_chat_with(other_user)
     raise 'Invalid argument' if other_user == self
 
-    new_room = rooms.create!
+    slug = [id, other_user.id].sort.join('-')
+    new_room = rooms.create!(name: other_user.id, room_type: 'direct', slug: slug)
     other_user.entries.create!(room_id: new_room.id)
     new_room
   end

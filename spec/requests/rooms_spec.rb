@@ -16,7 +16,10 @@ RSpec.describe 'Rooms', type: :request do
 
     context 'when signed in' do
       let(:alice) { create :user }
-      let!(:room) { alice.rooms.create! }
+      let!(:room_with_alice) do
+        entry = create :entry, user: alice
+        entry.room
+      end
 
       before { sign_in alice }
 
@@ -27,7 +30,7 @@ RSpec.describe 'Rooms', type: :request do
 
       it 'shows rooms' do
         get root_path
-        expect(response.body).to include "Room#{room.id}（#{alice.id}）"
+        expect(response.body).to include "Room#{room_with_alice.id}（#{alice.id}）"
       end
     end
   end
