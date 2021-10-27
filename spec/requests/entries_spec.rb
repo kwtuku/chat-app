@@ -30,7 +30,37 @@ RSpec.describe 'Entries', type: :request do
       end
     end
 
-    context 'when signed in' do
+    context 'when signed in and entry_params is self' do
+      let(:self_entry_params) { { user_id: alice.id } }
+
+      before { sign_in alice }
+
+      it 'returns a 302 response' do
+        post entries_path, params: self_entry_params
+        expect(response.status).to eq 302
+      end
+
+      it 'redirects to request.referer || root_path' do
+        post entries_path, params: self_entry_params
+        expect(response).to redirect_to(request.referer || root_path)
+      end
+
+      it 'does not increase Entry count' do
+        expect do
+          post entries_path, params: self_entry_params
+        end.to change(Entry, :count).by(0)
+          .and change { alice.entries.count }.by(0)
+      end
+
+      it 'does not increase Room count' do
+        expect do
+          post entries_path, params: self_entry_params
+        end.to change(Room, :count).by(0)
+          .and change { alice.rooms.count }.by(0)
+      end
+    end
+
+    context 'when signed in and entry_params is other_user' do
       before { sign_in alice }
 
       it 'returns a 302 response' do

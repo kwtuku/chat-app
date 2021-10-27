@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :rooms, through: :entries
 
   def create_room_with(other_user)
+    raise 'Invalid argument' if other_user == self
+
     new_room = rooms.create!
     other_user.entries.create!(room_id: new_room.id)
     new_room
