@@ -1,8 +1,6 @@
 class RoomsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index]
-
   def index
-    @rooms = current_user.rooms.all if user_signed_in?
+    @rooms = current_user.rooms.all
   end
 
   def show

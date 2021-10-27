@@ -2,7 +2,13 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   devise_for :users
 
-  root 'rooms#index'
+  authenticated do
+    root to: 'rooms#index', as: :authenticated_root
+  end
+
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
 
   resources :entries, only: %i[create]
 

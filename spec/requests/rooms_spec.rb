@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Rooms', type: :request do
-  describe 'GET /' do
+  describe 'GET /rooms' do
     context 'when not signed in' do
       it 'returns a 302 response' do
         get root_path
