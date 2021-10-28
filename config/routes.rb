@@ -10,8 +10,6 @@ Rails.application.routes.draw do
     root to: 'devise/sessions#new'
   end
 
-  resources :entries, only: %i[create]
-
   namespace :rooms do
     resources :directs, only: %i[create]
   end
