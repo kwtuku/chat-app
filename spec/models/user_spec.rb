@@ -63,13 +63,6 @@ RSpec.describe User, type: :model do
         room = alice.find_or_create_direct_chat_with(bob)
         expect(room.slug).to eq [alice.id, bob.id].sort.join('-')
       end
-
-      it 'returns correct room' do
-        slug = [alice, bob].map(&:id).sort.join('-')
-        expected_room = Room.find_by(slug: slug)
-        returned_room = alice.find_or_create_direct_chat_with(bob)
-        expect(returned_room).to eq expected_room
-      end
     end
 
     context 'when other_user != self and room does not exist' do
@@ -108,6 +101,94 @@ RSpec.describe User, type: :model do
       it 'has correct slug' do
         room = alice.find_or_create_direct_chat_with(bob)
         expect(room.slug).to eq [alice.id, bob.id].sort.join('-')
+      end
+    end
+  end
+
+  describe 'create_group_chat_with(other_users)' do
+    let(:alice) { create :user }
+    let(:bob) { create :user }
+    let(:carol) { create :user }
+
+    context 'when other_users is not Array' do
+      it 'raises Invalid argument' do
+        expect do
+          alice.create_group_chat_with(alice)
+        end.to raise_error 'Invalid argument'
+      end
+    end
+
+    context 'when other_users contains self' do
+      it 'increases correct Entry count' do
+        expect do
+          alice.create_group_chat_with([alice, bob])
+        end.to change(Entry, :count).by(2)
+          .and change(alice.entries, :count).by(1)
+          .and change(bob.entries, :count).by(1)
+      end
+
+      it 'increases correct Room count' do
+        expect do
+          alice.create_group_chat_with([alice, bob])
+        end.to change(Room, :count).by(1)
+          .and change(alice.rooms, :count).by(1)
+          .and change(bob.rooms, :count).by(1)
+      end
+    end
+
+    context 'when other_users contains a duplicated user' do
+      it 'increases correct Entry count' do
+        expect do
+          alice.create_group_chat_with([bob, bob, carol])
+        end.to change(Entry, :count).by(3)
+          .and change(alice.entries, :count).by(1)
+          .and change(bob.entries, :count).by(1)
+          .and change(carol.entries, :count).by(1)
+      end
+
+      it 'increases correct Room count' do
+        expect do
+          alice.create_group_chat_with([bob, bob, carol])
+        end.to change(Room, :count).by(1)
+          .and change(alice.rooms, :count).by(1)
+          .and change(bob.rooms, :count).by(1)
+          .and change(carol.rooms, :count).by(1)
+      end
+    end
+
+    context 'when other_users does not contain self and a duplicated user' do
+      it 'increases correct Entry count' do
+        expect do
+          alice.create_group_chat_with([bob, carol])
+        end.to change(Entry, :count).by(3)
+          .and change(alice.entries, :count).by(1)
+          .and change(bob.entries, :count).by(1)
+          .and change(carol.entries, :count).by(1)
+      end
+
+      it 'increases correct Room count' do
+        expect do
+          alice.create_group_chat_with([bob, carol])
+        end.to change(Room, :count).by(1)
+          .and change(alice.rooms, :count).by(1)
+          .and change(bob.rooms, :count).by(1)
+          .and change(carol.rooms, :count).by(1)
+      end
+
+      it 'has correct users' do
+        room = alice.create_group_chat_with([bob, carol])
+        expect(room.users.size).to eq 3
+        expect(room.users).to include alice, bob, carol
+      end
+
+      it 'returns Room' do
+        room = alice.create_group_chat_with([bob, carol])
+        expect(room.class).to eq Room
+      end
+
+      it 'is group chat' do
+        room = alice.create_group_chat_with([bob, carol])
+        expect(room.room_type).to eq 'group'
       end
     end
   end
