@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :entries, only: %i[create]
 
+  namespace :rooms do
+    resources :directs, only: %i[create]
+  end
+
   resources :rooms, only: %i[index show] do
     resources :messages, only: %i[create]
   end
