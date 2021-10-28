@@ -7,7 +7,7 @@ RSpec.describe 'Users', type: :system do
     visit new_user_session_path
     fill_in 'user[email]', with: alice.email
     fill_in 'user[password]', with: alice.password
-    click_button 'ログイン'
+    find('[data-rspec=sign_in]').click
     expect(page).to have_content 'ログインしました。'
   end
 
@@ -15,7 +15,7 @@ RSpec.describe 'Users', type: :system do
     visit new_user_session_path
     fill_in 'user[email]', with: alice.email
     fill_in 'user[password]', with: alice.password
-    click_button 'ログイン'
+    find('[data-rspec=sign_in]').click
     expect(page).to have_content 'ログインしました。'
     find('.btn-close').click
     expect(page).not_to have_content 'ログインしました。'
