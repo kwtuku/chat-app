@@ -1,6 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe 'Rooms::Groups', type: :request do
+  describe 'GET /rooms/groups/new' do
+    let(:alice) { create :user }
+    let!(:bob) { create :user }
+
+    context 'when not signed in' do
+      it 'returns a 302 response' do
+        get new_rooms_group_path
+        expect(response.status).to eq 302
+      end
+
+      it 'redirects to new_user_session_path' do
+        get new_rooms_group_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'when signed in' do
+      before { sign_in alice }
+
+      it 'returns a 200 response' do
+        get new_rooms_group_path
+        expect(response.status).to eq 200
+      end
+
+      it 'does not render current_user checkbox' do
+        get new_rooms_group_path
+        expect(response.body).not_to include "data-rspec='rooms_groups_new_checkbox_#{alice.id}'"
+      end
+
+      it 'renders other user checkbox' do
+        get new_rooms_group_path
+        expect(response.body).to include "data-rspec='rooms_groups_new_checkbox_#{bob.id}'"
+      end
+    end
+  end
+
   describe 'POST /rooms/groups' do
     let(:alice) { create :user }
     let(:bob) { create :user }
