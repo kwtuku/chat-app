@@ -1,0 +1,29 @@
+<div class="col">
+  <div class="card my-5">
+    <div class="card-body">
+      <%= form_with url: rooms_groups_path do |f| %>
+        <div class="row mb-3">
+          <%= f.collection_check_boxes(:user_ids, @users_without_self, :id, :email, include_hidden: false) do |b| %>
+            <div class="col-4">
+              <div class="form-check ps-0">
+                <%= b.check_box class: 'btn-check', data: { rspec: "rooms_groups_new_checkbox_#{b.object.id}" } %>
+                <%= b.label class: 'btn btn-outline-success' do %>
+                  <div class="row">
+                    <div class="col-4">
+                      <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+                    </div>
+                    <div class="col-8 align-self-center text-start">
+                      <%= b.object.email %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%= f.submit 'グループチャットを作成', class: 'btn btn-success', data: { rspec: 'create_group_chat' } %>
+      <% end %>
+    </div>
+  </div>
+</div>

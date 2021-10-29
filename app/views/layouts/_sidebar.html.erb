@@ -9,6 +9,12 @@
     <ul class="navbar-nav flex-column text-center w-100">
       <% if user_signed_in? %>
         <li class="nav-item">
+          <%= link_to new_rooms_group_path, data: { bs_toggle: 'tooltip', bs_placement: 'right', rspec: 'move_to_rooms_groups_new' },
+            title: 'グループチャットを作成', class: "nav-link py-3 #{'active' if current_page?(new_rooms_group_path)}" do %>
+            <i class="fas fa-users"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
           <%= link_to users_path, data: { bs_toggle: 'tooltip', bs_placement: 'right', rspec: 'move_to_users_index' },
             title: 'ダイレクトチャットを作成', class: "nav-link py-3 #{'active' if current_page?(users_path)}" do %>
             <i class="fas fa-user-friends"></i>
@@ -57,6 +63,11 @@
 
           <ul class="navbar-nav flex-column w-100">
             <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to new_rooms_group_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(new_rooms_group_path)}" do %>
+                  <i class="fas fa-users me-2"></i>グループチャットを作成
+                <% end %>
+              </li>
               <li class="nav-item">
                 <%= link_to users_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(users_path)}" do %>
                   <i class="fas fa-user-friends me-2"></i>ダイレクトチャットを作成

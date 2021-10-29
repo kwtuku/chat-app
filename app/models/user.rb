@@ -22,16 +22,11 @@ class User < ApplicationRecord
   end
 
   def create_group_chat_with(other_users)
-    raise 'Invalid argument' if other_users.class != Array
-
-    other_users.uniq!
-    other_users.delete(self)
-
-    users = other_users + [self]
+    users = other_users.to_a + [self]
     name = users.map(&:id).sort.join(', ')
     slug = SecureRandom.hex
     new_room = rooms.create!(name: name, room_type: 'group', slug: slug)
-    other_users.each { |user| user.entries.create!(room_id: new_room.id) }
+    other_users.each { |user| user.entries.find_or_create_by(room_id: new_room.id) }
     new_room
   end
 end
