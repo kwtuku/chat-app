@@ -41,48 +41,7 @@ document.addEventListener('turbolinks:load', () => {
 
   messageContent.addEventListener('input', () => {
     button_activation()
-    changeLineCheck()
   })
-
-  messageButton.addEventListener('click', () => {
-    messageButton.classList.add('disabled')
-    changeLineCount(1)
-  })
-
-  const maxLineCount = 10
-
-  const getLineCount = () => {
-    return (messageContent.value + '\n').match(/\r?\n/g).length;
-  }
-
-  let lineCount = getLineCount()
-  let newLineCount
-
-  const changeLineCheck = () => {
-    newLineCount = Math.min(getLineCount(), maxLineCount)
-    if (lineCount !== newLineCount) {
-      changeLineCount(newLineCount)
-    }
-  }
-
-  const form = document.getElementById('form')
-  let formHeight = form.scrollHeight
-  let newFormHeight, formHeightDiff
-
-  const changeLineCount = (newLineCount) => {
-    messageContent.rows = lineCount = newLineCount
-
-    newFormHeight = form.scrollHeight
-    formHeightDiff = newFormHeight - formHeight
-    if (formHeightDiff > 0) {
-      messageContainer.style.paddingBottom = newFormHeight + 'px'
-      window.scrollBy(0, formHeightDiff)
-    } else {
-      window.scrollBy(0, formHeightDiff)
-      messageContainer.style.paddingBottom = newFormHeight + 'px'
-    }
-    formHeight = newFormHeight
-  }
 
   let oldestMessageId
 
@@ -96,8 +55,8 @@ document.addEventListener('turbolinks:load', () => {
         type: 'GET',
         url: '/show_additionally',
         cache: false,
-        data: {oldest_message_id: oldestMessageId, remote: true}
+        data: { oldest_message_id: oldestMessageId, remote: true }
       })
     }
-  }, {passive: true});
+  }, { passive: true });
 })

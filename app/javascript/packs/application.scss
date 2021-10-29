@@ -40,4 +40,11 @@ $modal-show-transform: translateX(0);
 
 .msg-footer__textarea {
   resize: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

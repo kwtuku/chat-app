@@ -25,3 +25,6 @@ document.addEventListener('turbolinks:load', () => {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 })
+
+import resizeTextarea from '../src/resizeTextarea'
+resizeTextarea();
