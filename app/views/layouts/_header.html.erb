@@ -15,7 +15,7 @@
               <%= link_to 'ダイレクトチャットを作成', users_path, class: "nav-link #{'active' if current_page?(users_path)}" %>
             </li>
             <li class="nav-item">
-              <%= link_to 'チャット一覧', rooms_path, class: "nav-link #{'active' if current_page?(rooms_path)}" %>
+              <%= link_to 'チャット一覧', rooms_path, class: "nav-link #{'active' if controller.controller_name == 'rooms'}" %>
             </li>
             <li class="nav-item">
               <%= link_to 'アカウント編集', edit_user_registration_path,

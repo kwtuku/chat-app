@@ -1,42 +1,24 @@
 <div class="text-break mb-5 message" id="message-<%= message.id %>">
-  <% if message.user == current_user %>
-    <div class="row justify-content-end">
-      <div class="col-8">
-        <div class="card bg-light text-dark">
-          <div class="card-body">
-            <%= simple_format(h message.content) %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-end">
-      <div class="col-8">
-        <p class="text-end">
-          <%= message_created_at(message.created_at) %>
-        </p>
-      </div>
-    </div>
-  <% else %>
-    <div class="row">
+  <div class="row">
+    <% if message.user != current_user %>
       <div class="col-1 align-self-end">
         <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
       </div>
-      <div class="col-8">
-        <div class="card">
-          <div class="card-body">
-            <%= simple_format(h message.content) %>
-          </div>
+    <% end %>
+    <div class="col-8 <%= 'offset-4' if message.user == current_user %>">
+      <div class="card">
+        <div class="card-body <%= 'bg-light' if message.user == current_user %>">
+          <%= simple_format(h message.content) %>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-8 offset-1">
-        <p>
-          <%= message_created_at(message.created_at) %>
-        </p>
-      </div>
+  <div class="row">
+    <div class="col-8 <%= message.user == current_user ? 'offset-4' : 'offset-1' %>">
+      <p>
+        <%= message_created_at(message.created_at) %>
+      </p>
     </div>
-  <% end %>
+  </div>
 </div>

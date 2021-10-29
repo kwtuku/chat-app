@@ -22,7 +22,7 @@
         </li>
         <li class="nav-item">
           <%= link_to rooms_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' }, title: 'チャット一覧',
-            class: "nav-link py-3 #{'active' if current_page?(rooms_path)}" do %>
+            class: "nav-link py-3 #{'active' if controller.controller_name == 'rooms'}" do %>
             <i class="fas fa-envelope"></i>
           <% end %>
         </li>
