@@ -15,6 +15,10 @@ $modal-show-transform: translateX(0);
 .room-card {
   $my-2-height: 16px;
   height: calc(100vh - $my-2-height);
+
+  &__message-container {
+    width: 95%;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -22,6 +26,22 @@ $modal-show-transform: translateX(0);
     $navbar-height: 56px;
     $my-2-height: 16px;
     height: calc(100vh - $navbar-height - $my-2-height);
+
+    &__message-container {
+      width: 94%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .room-card__message-container {
+    width: 92%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .room-card__message-container {
+    width: 89%;
   }
 }
 
