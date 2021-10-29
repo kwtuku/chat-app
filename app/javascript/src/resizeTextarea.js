@@ -1,7 +1,8 @@
 export default () => {
   document.addEventListener('turbolinks:load', () => {
-    const textarea = document.getElementById('resize-textarea');
-    if (textarea === null) return false;
+    const textarea = document.querySelector('.js-resize-textarea');
+
+    if (textarea === null) return;
 
     let textareaClientHeight = textarea.clientHeight;
 

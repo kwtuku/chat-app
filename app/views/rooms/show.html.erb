@@ -24,11 +24,11 @@
         <%= form_with model: [@room, @message], local: false do |f| %>
           <div class="row">
             <div class="col-10">
-              <%= f.text_area :content, class: 'form-control msg-footer__textarea', id: 'resize-textarea', rows: '1', maxlength: '500' %>
+              <%= f.text_area :content, rows: '1', maxlength: '500', required: true, class: 'form-control msg-footer__textarea js-resize-textarea' %>
             </div>
 
             <div class="col-2 align-self-center">
-              <%= f.submit '送信', class: 'btn btn-success disabled', id: 'message-button' %>
+              <%= f.submit '送信', disabled: true, class: 'btn btn-success', id: 'create-message-button' %>
             </div>
           </div>
         <% end %>

@@ -12,12 +12,6 @@ $modal-show-transform: translateX(0);
   @extend .alert-danger;
 }
 
-.btn-primary.disabled {
-  background-color: #6c757d;
-  border-color: #6c757d;
-  cursor: auto;
-}
-
 .room-card {
   $navbar-height: 56px;
   $my-2-height: 16px;

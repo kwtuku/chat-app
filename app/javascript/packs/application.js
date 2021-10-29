@@ -26,5 +26,8 @@ document.addEventListener('turbolinks:load', () => {
   })
 })
 
+import handleButtonState from '../src/handleButtonState'
+handleButtonState();
+
 import resizeTextarea from '../src/resizeTextarea'
 resizeTextarea();
