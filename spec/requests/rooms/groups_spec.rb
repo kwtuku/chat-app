@@ -27,12 +27,12 @@ RSpec.describe 'Rooms::Groups', type: :request do
 
       it 'does not render current_user checkbox' do
         get new_rooms_group_path
-        expect(response.body).not_to include "data-rspec='rooms_groups_new_checkbox_#{alice.id}'"
+        expect(response.body).not_to include "rooms_groups_new_checkbox_#{alice.id}"
       end
 
       it 'renders other user checkbox' do
         get new_rooms_group_path
-        expect(response.body).to include "data-rspec='rooms_groups_new_checkbox_#{bob.id}'"
+        expect(response.body).to include "rooms_groups_new_checkbox_#{bob.id}"
       end
     end
   end
