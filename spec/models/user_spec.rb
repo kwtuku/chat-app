@@ -111,7 +111,7 @@ RSpec.describe User, type: :model do
     let(:carol) { create :user }
 
     context 'when other_users has self' do
-      let(:other_users_with_self) { User.find(alice.id, bob.id) }
+      let(:other_users_with_self) { described_class.find(alice.id, bob.id) }
 
       it 'increases correct Entry count' do
         expect do
@@ -131,7 +131,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when other_users does not have self' do
-      let(:other_users) { User.find(bob.id, carol.id) }
+      let(:other_users) { described_class.find(bob.id, carol.id) }
 
       it 'increases correct Entry count' do
         expect do

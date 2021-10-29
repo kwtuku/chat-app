@@ -172,12 +172,12 @@ RSpec.describe 'Rooms::Groups', type: :request do
           .and change { alice.entries.count }.by(1)
           .and change { bob.entries.count }.by(1)
           .and change { carol.entries.count }.by(1)
-        end
+      end
 
-        it 'increases Room count' do
-          expect do
-            post rooms_groups_path, params: room_group_params
-          end.to change(Room, :count).by(1)
+      it 'increases Room count' do
+        expect do
+          post rooms_groups_path, params: room_group_params
+        end.to change(Room, :count).by(1)
           .and change { alice.rooms.count }.by(1)
           .and change { bob.rooms.count }.by(1)
           .and change { carol.rooms.count }.by(1)
