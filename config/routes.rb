@@ -16,10 +16,9 @@ Rails.application.routes.draw do
   end
 
   resources :rooms, only: %i[index show] do
+    resources :additional_messages, only: %i[index]
     resources :messages, only: %i[create]
   end
 
   resources :users, only: %i[index]
-
-  get '/show_additionally', to: 'rooms#show_additionally'
 end
