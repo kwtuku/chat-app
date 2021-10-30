@@ -1,9 +1,24 @@
-var messageHeight = messageContainer.scrollHeight
-messageContainer.insertAdjacentHTML('afterbegin', "<%= j(render @messages) %>")
+var scrollableArea = document.getElementById('scrollable-area');
 
-var newMessageHeight = messageContainer.scrollHeight
-window.scrollBy(0, newMessageHeight - messageHeight)
+var beforeScrollHeight = scrollableArea.scrollHeight;
+var viewTop = scrollableArea.scrollTop;
 
-<% if @messages.present? %>
-  showAdditionally = true
+var loadingAnimation = document.getElementById('loading-animation');
+if (loadingAnimation) loadingAnimation.remove();
+
+var messageContainer = document.getElementById('message-container');
+messageContainer.insertAdjacentHTML('afterbegin', '<%= j(render @messages) %>');
+
+var afterScrollHeight = scrollableArea.scrollHeight;
+var heightDiff = afterScrollHeight - beforeScrollHeight;
+
+scrollableArea.scrollTop = viewTop + heightDiff;
+
+<% if @messages.size == 50 %>
+  scrollableArea.dataset.infiniteScroll = 'true';
+
+  messageContainer.insertAdjacentHTML('afterbegin', loadingAnimation.outerHTML);
+
+  var messageCount = document.querySelectorAll('[data-infinite-scroll-item="message"]').length;
+  loadingAnimation.setAttribute('href', `/show_additional?message_count=${messageCount}$room_id=${location.pathname.match(/\d+/)[0]}`);
 <% end %>

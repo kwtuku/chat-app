@@ -6,12 +6,14 @@ class RoomsController < ApplicationController
   def show
     @rooms = current_user.rooms.all
     @room = Room.find(params[:id])
-    @messages = @room.messages.includes(:user).order(:id).last(100)
+    @messages = @room.messages.includes(:user).order(:id).last(50)
     @message = current_user.messages.build
   end
 
   def show_additionally
-    last_id = params[:oldest_message_id].to_i - 1
-    @messages = Message.includes(:user).order(:id).where(id: 1..last_id).last(50)
+    @room = Room.find(params[:room_id])
+    first = params[:message_count].to_i
+    last = first + 49
+    @messages = @room.messages.includes(:user).order(id: :DESC)[first..last].reverse
   end
 end

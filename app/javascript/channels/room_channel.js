@@ -1,11 +1,11 @@
-import consumer from "./consumer"
+import consumer from './consumer'
 
 document.addEventListener('turbolinks:load', () => {
-  window.messageContainer = document.getElementById('message-container')
+  const messageContainer = document.getElementById('message-container');
 
   if (messageContainer === null) return;
 
-  consumer.subscriptions.create("RoomChannel", {
+  consumer.subscriptions.create('RoomChannel', {
     connected() {
     },
 
@@ -16,21 +16,4 @@ document.addEventListener('turbolinks:load', () => {
       messageContainer.insertAdjacentHTML('beforeend', data['message'])
     }
   })
-
-  let oldestMessageId
-
-  window.showAdditionally = true
-
-  window.addEventListener('scroll', () => {
-    if (document.documentElement.scrollTop === 0 && showAdditionally) {
-      showAdditionally = false
-      oldestMessageId = document.getElementsByClassName('message')[0].id.replace(/[^0-9]/g, '')
-      $.ajax({
-        type: 'GET',
-        url: '/show_additionally',
-        cache: false,
-        data: { oldest_message_id: oldestMessageId, remote: true }
-      })
-    }
-  }, { passive: true });
 })
