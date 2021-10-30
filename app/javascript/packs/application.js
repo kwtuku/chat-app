@@ -31,3 +31,6 @@ handleButtonState();
 
 import resizeTextarea from '../src/resizeTextarea'
 resizeTextarea();
+
+import handleScroll from '../src/handleScroll'
+handleScroll();

@@ -17,22 +17,14 @@ document.addEventListener('turbolinks:load', () => {
     }
   })
 
-  const documentElement = document.documentElement
-
   window.messageContent = document.getElementById('message_content')
-
-  window.scrollToBottom = () => {
-    window.scroll(0, documentElement.scrollHeight)
-  }
-
-  scrollToBottom()
 
   let oldestMessageId
 
   window.showAdditionally = true
 
   window.addEventListener('scroll', () => {
-    if (documentElement.scrollTop === 0 && showAdditionally) {
+    if (document.documentElement.scrollTop === 0 && showAdditionally) {
       showAdditionally = false
       oldestMessageId = document.getElementsByClassName('message')[0].id.replace(/[^0-9]/g, '')
       $.ajax({
