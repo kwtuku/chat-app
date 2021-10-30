@@ -8,9 +8,9 @@ export default () => {
 
     messageContent.addEventListener('input', () => {
       if (messageContent.value.trim()) {
-        button.disabled = false;
+        button.classList.remove('disabled');
       } else {
-        button.disabled = true;
+        button.classList.add('disabled');
       }
     });
   });

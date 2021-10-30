@@ -17,8 +17,6 @@ document.addEventListener('turbolinks:load', () => {
     }
   })
 
-  window.messageContent = document.getElementById('message_content')
-
   let oldestMessageId
 
   window.showAdditionally = true

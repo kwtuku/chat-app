@@ -1,2 +1,5 @@
-messageContent.value = ''
-scrollToBottom()
+var messageContent = document.getElementById('message_content');
+messageContent.value = '';
+
+var button = document.getElementById('create-message-button');
+button.classList.add('disabled');
