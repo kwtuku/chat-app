@@ -5,11 +5,19 @@ $modal-show-transform: translateX(0);
 @import "bootstrap/scss/bootstrap";
 
 .alert-notice {
-  @extend .alert-info;
+  @extend .alert-success;
 }
 
 .alert-alert {
   @extend .alert-danger;
+}
+
+.bg-notice {
+  @extend .bg-success;
+}
+
+.bg-alert {
+  @extend .bg-danger;
 }
 
 .room-card {
@@ -96,4 +104,11 @@ $modal-show-transform: translateX(0);
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.toast {
+  position: absolute;
+  top: 1rem;
+  right: 35%;
+  z-index: 1030;
 }
