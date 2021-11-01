@@ -22,7 +22,8 @@
         </div>
       </div>
 
-      <div class="container py-1 overflow-auto h-100 position-relative" id="scrollable-area" data-infinite-scroll="<%= @messages.size == 50 %>">
+      <div class="container py-1 overflow-auto h-100 position-relative" id="scrollable-area" data-infinite-scroll="<%= @messages.size == 50 %>"
+        data-rspec="scrollable_area">
         <div class="position-absolute room-card__message-container" id="message-container">
           <% if @messages.size == 50 %>
             <%= link_to room_additional_messages_path(@room, message_count: @messages.size), remote: true, id: 'loading-animation' do %>

@@ -17,8 +17,8 @@ scrollableArea.scrollTop = viewTop + heightDiff;
 <% if @messages.size == 50 %>
   scrollableArea.dataset.infiniteScroll = 'true';
 
-  messageContainer.insertAdjacentHTML('afterbegin', loadingAnimation.outerHTML);
-
   var messageCount = document.querySelectorAll('[data-infinite-scroll-item="message"]').length;
   loadingAnimation.setAttribute('href', `/rooms/${location.pathname.match(/\d+/)[0]}/additional_messages?message_count=${messageCount}`);
+
+  messageContainer.insertAdjacentHTML('afterbegin', loadingAnimation.outerHTML);
 <% end %>
