@@ -1,30 +1,35 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-user_count = 3
-message_count = 1000
+Rails.logger = Logger.new($stdout)
 
 ApplicationRecord.transaction do
-  user_count.times do |n|
-    User.find_or_create_by!(email: "test#{n + 1}@example.com") do |user|
-      user.password = 'password'
-    end
+  3.times do |n|
+    User.find_or_create_by!(email: "example#{n + 1}@example.com") { |user| user.password = 'fffffr' }
   end
+  Rails.logger.debug 'userを作成'
 
-  Message.destroy_all
+  room = Room.create!
+  Rails.logger.debug 'roomを作成'
+
   user_ids = User.ids
-  message_list = []
-  message_count.times do |n|
-    user_id = user_ids.sample
-    line_count = rand(1..4)
-    content = Faker::Lorem.paragraphs(number: line_count).join("\n")
-    message_list << { user_id: user_id, content: content }
+
+  user_ids.each do |user_id|
+    Entry.create!(room_id: room.id, user_id: user_id)
   end
-  Message.create!(message_list)
+  Rails.logger.debug 'entryを作成'
+
+  user_ids.each do |user_id|
+    Message.create!(
+      room_id: room.id,
+      user_id: user_id,
+      content: Faker::Lorem.paragraphs(number: rand(1..4)).join("\n")
+    )
+  end
+  Rails.logger.debug 'messageを作成'
+
+  room_without_msg = Room.create!
+  Rails.logger.debug 'room_without_msgを作成'
+
+  user_ids.each do |user_id|
+    Entry.create!(room_id: room_without_msg.id, user_id: user_id)
+  end
+  Rails.logger.debug 'entryを作成'
 end
-puts '初期データの追加が完了しました！'

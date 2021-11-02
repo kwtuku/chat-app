@@ -24,6 +24,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: myapp_test
           POSTGRES_PASSWORD: ""
+      - image: selenium/standalone-chrome:latest
+        name: chrome
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -31,6 +33,7 @@ jobs:
       PGUSER: postgres
       PGPASSWORD: ""
       RAILS_ENV: test
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
     steps:
       - checkout
       - ruby/install-deps
@@ -44,6 +47,8 @@ jobs:
           name: Database setup
           command: bundle exec rails db:schema:load --trace
       - ruby/rspec-test
+      - store_test_results:
+          path: /tmp/test-results
 
 workflows:
   version: 2

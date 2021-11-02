@@ -6,17 +6,31 @@
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
+    <script src="https://kit.fontawesome.com/3772f19f3b.js" crossorigin="anonymous"></script>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'shared/header' %>
-    <div class="container-fluid py-4">
-      <div class="row justify-content-center">
-        <div class="<%= devise_controller? ? 'col-md-8 col-lg-5' : 'col-lg-8' %>">
-          <%= yield %>
+    <div class="row m-0">
+      <div class="d-none d-xl-block col-xl-1 p-0 vh-100">
+        <%= render 'layouts/sidebar' %>
+      </div>
+
+      <div class="col-12 col-xl-11 p-0 vh-100 overflow-auto">
+        <div class="d-xl-none">
+          <%= render 'layouts/header' %>
         </div>
+
+        <%= render 'layouts/flash_messages' unless (controller.controller_name == 'sessions' && controller.action_name == 'new') %>
+
+        <main class="container">
+          <div class="row justify-content-center">
+            <%= yield %>
+          </div>
+        </main>
       </div>
     </div>
   </body>

@@ -1,23 +1,114 @@
+$modal-fade-transform: translateX(-10px);
+
+$modal-show-transform: translateX(0);
+
 @import "bootstrap/scss/bootstrap";
 
 .alert-notice {
-  @extend .alert-info;
+  @extend .alert-success;
 }
 
 .alert-alert {
   @extend .alert-danger;
 }
 
-#message-container {
-  margin-bottom: 120px;
+.bg-notice {
+  @extend .bg-success;
 }
 
-.btn-primary.disabled {
-  background-color: #6c757d;
-  border-color: #6c757d;
-  cursor: auto;
+.bg-alert {
+  @extend .bg-danger;
 }
 
-#message_content {
+.room-card {
+  $my-2-height: 16px;
+  height: calc(100vh - $my-2-height);
+
+  &__message-container {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .room-card {
+    $navbar-height: 56px;
+    $my-2-height: 16px;
+    height: calc(100vh - $navbar-height - $my-2-height);
+
+    &__message-container {
+      width: 94%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .room-card__message-container {
+    width: 92%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .room-card__message-container {
+    width: 89%;
+  }
+}
+
+.msg-footer__textarea {
   resize: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.loading-animation,
+.loading-animation:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+.loading-animation {
+  margin: 60px auto;
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid #fafafa;
+  border-right: 1.1em solid #fafafa;
+  border-bottom: 1.1em solid #fafafa;
+  border-left: 1.1em solid #dbdbdb;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.toast {
+  position: absolute;
+  top: 1rem;
+  right: 35%;
+  z-index: 1030;
 }

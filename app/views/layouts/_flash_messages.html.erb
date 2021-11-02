@@ -1,6 +1,11 @@
 <% flash.each do |msg_type, msg| %>
-  <div class="alert alert-<%= msg_type %>" role="alert" id="alert">
-    <a href="#" class="close" data-dismiss="alert">×</a>
-    <%= msg %>
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-rspec="flash_message">
+    <div class="toast-header bg-<%= msg_type %> text-white">
+      <strong class="me-auto">chat-app</strong>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body bg-light">
+      <%= msg %>
+    </div>
   </div>
 <% end %>

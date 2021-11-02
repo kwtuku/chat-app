@@ -1,0 +1,106 @@
+<nav class="navbar navbar-dark bg-success p-0">
+  <div class="container p-0 vh-100 flex-column justify-content-start flex-nowrap">
+    <button type="button" class="btn py-4 w-100" data-bs-toggle="modal" data-bs-target="#sidebarModal">
+      <i class="fas fa-bars text-white"></i>
+    </button>
+
+    <%= link_to 'chat-app', root_path, class: 'navbar-brand fs-6 m-0 py-3 text-center w-100' %>
+
+    <ul class="navbar-nav flex-column text-center w-100">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to new_rooms_group_path, data: { bs_toggle: 'tooltip', bs_placement: 'right', rspec: 'move_to_rooms_groups_new' },
+            title: 'グループチャットを作成', class: "nav-link py-3 #{'active' if current_page?(new_rooms_group_path)}" do %>
+            <i class="fas fa-users"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path, data: { bs_toggle: 'tooltip', bs_placement: 'right', rspec: 'move_to_users_index' },
+            title: 'ダイレクトチャットを作成', class: "nav-link py-3 #{'active' if current_page?(users_path)}" do %>
+            <i class="fas fa-user-friends"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to rooms_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' }, title: 'チャット一覧',
+            class: "nav-link py-3 #{'active' if controller.controller_name == 'rooms'}" do %>
+            <i class="fas fa-envelope"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to edit_user_registration_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' },
+            title: '設定', class: "nav-link py-3 #{'active' if current_page?(edit_user_registration_path)}" do %>
+            <i class="fas fa-cog"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to destroy_user_session_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' }, title: 'ログアウト',
+            method: :delete, class: 'nav-link py-3' do %>
+            <i class="fas fa-sign-out-alt"></i>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to '登録', new_user_registration_path, class: "nav-link py-3 #{'active' if current_page?(new_user_registration_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ログイン', new_user_session_path, class: "nav-link py-3 #{'active' if current_page?(new_user_session_path)}" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="modal fade" id="sidebarModal" tabindex="-1" aria-labelledby="sidebarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm m-0">
+    <div class="modal-content border-0 vh-100">
+      <nav class="navbar navbar-dark bg-success p-0">
+        <div class="container p-0 vh-100 flex-column justify-content-start flex-nowrap">
+          <button type="button" class="btn text-start ps-5 py-4 w-100" data-bs-toggle="modal" data-bs-target="#sidebarModal">
+            <i class="fas fa-bars text-white"></i>
+          </button>
+
+          <%= link_to 'chat-app', root_path, class: 'navbar-brand py-3 ps-5 w-100' %>
+
+          <ul class="navbar-nav flex-column w-100">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to new_rooms_group_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(new_rooms_group_path)}" do %>
+                  <i class="fas fa-users me-2"></i>グループチャットを作成
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to users_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(users_path)}" do %>
+                  <i class="fas fa-user-friends me-2"></i>ダイレクトチャットを作成
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to rooms_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(rooms_path)}" do %>
+                  <i class="fas fa-envelope me-2"></i>チャット一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to edit_user_registration_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(edit_user_registration_path)}" do %>
+                  <i class="fas fa-cog me-2"></i>アカウント編集
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_user_session_path, method: :delete,
+                  class: 'nav-link py-3 ps-5' do %>
+                  <i class="fas fa-sign-out-alt me-2"></i>ログアウト
+                <% end %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to '登録', new_user_registration_path,
+                  class: "nav-link py-3 ps-5 #{'active' if current_page?(new_user_registration_path)}" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'ログイン', new_user_session_path, class: "nav-link py-3 ps-5 #{'active' if current_page?(new_user_session_path)}" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+var scrollableArea = document.getElementById('scrollable-area');
+
+var beforeScrollHeight = scrollableArea.scrollHeight;
+var viewTop = scrollableArea.scrollTop;
+
+var loadingAnimation = document.getElementById('loading-animation');
+if (loadingAnimation) loadingAnimation.remove();
+
+var messageContainer = document.getElementById('message-container');
+messageContainer.insertAdjacentHTML('afterbegin', '<%= j(render @messages) %>');
+
+var afterScrollHeight = scrollableArea.scrollHeight;
+var heightDiff = afterScrollHeight - beforeScrollHeight;
+
+scrollableArea.scrollTop = viewTop + heightDiff;
+
+<% if @messages.size == 50 %>
+  scrollableArea.dataset.infiniteScroll = 'true';
+
+  var messageCount = document.querySelectorAll('[data-infinite-scroll-item="message"]').length;
+  loadingAnimation.setAttribute('href', `/rooms/${location.pathname.match(/\d+/)[0]}/additional_messages?message_count=${messageCount}`);
+
+  messageContainer.insertAdjacentHTML('afterbegin', loadingAnimation.outerHTML);
+<% end %>

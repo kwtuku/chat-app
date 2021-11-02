@@ -1,5 +1,6 @@
 ja:
   time:
     formats:
-      default: "%Y年%-m月%-d日(%a) %H:%M"
-      short: "%H:%M"
+      before_this_year: "%Y年%-m月%-d日(%a) %-H:%M"
+      this_year: "%-m月%-d日(%a) %-H:%M"
+      today: "%-H:%M"

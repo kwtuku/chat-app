@@ -16,4 +16,27 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import 'bootstrap'
+import * as bootstrap from 'bootstrap'
+
+document.addEventListener('turbolinks:load', () => {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl)
+  })
+  toastList.forEach(toast => toast.show())
+})
+
+import handleButtonState from '../src/handleButtonState'
+handleButtonState();
+
+import resizeTextarea from '../src/resizeTextarea'
+resizeTextarea();
+
+import handleScroll from '../src/handleScroll'
+handleScroll();

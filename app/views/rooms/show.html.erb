@@ -1,7 +1,52 @@
-<%= render 'layouts/flash_messages' %>
+<div class="card my-2 room-card">
+  <div class="row h-100">
+    <div class="col-lg-4 d-none d-lg-block border-end px-0 overflow-auto">
+      <%= render @rooms %>
+    </div>
 
-<div id="message-container">
-  <%= render @messages %>
+    <div class="col-lg-8 px-0 d-flex flex-column">
+      <div class="card-body border-bottom">
+        <div class="row">
+          <div class="col-1 d-flex justify-content-center align-items-center">
+            <%= link_to rooms_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' }, title: 'チャット一覧',
+              class: "w-100 text-center link-secondary" do %>
+              <i class="fas fa-arrow-left"></i>
+            <% end %>
+          </div>
+          <div class="col-1">
+            <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+          </div>
+          <div class="col-8 align-self-center">
+            <p class="mb-0">Room<%= @room.id %>（<%= @room.user_ids.join(', ') %>）</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container py-1 overflow-auto h-100 position-relative" id="scrollable-area" data-infinite-scroll="<%= @messages.size == 50 %>"
+        data-rspec="scrollable_area">
+        <div class="position-absolute room-card__message-container" id="message-container">
+          <% if @messages.size == 50 %>
+            <%= link_to room_additional_messages_path(@room, message_count: @messages.size), remote: true, id: 'loading-animation' do %>
+              <div class="loading-animation"></div>
+            <% end %>
+          <% end %>
+          <%= render @messages %>
+        </div>
+      </div>
+
+      <div class="card-body border-top">
+        <%= form_with model: [@room, @message], local: false do |f| %>
+          <div class="row">
+            <div class="col-9 col-md-10">
+              <%= f.text_area :content, rows: '1', maxlength: '500', required: true, class: 'form-control msg-footer__textarea js-resize-textarea' %>
+            </div>
+
+            <div class="col-2 align-self-center">
+              <%= f.submit '送信', class: 'btn btn-success disabled', id: 'create-message-button', data: { rspec: 'create_message' } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= render 'form' %>
