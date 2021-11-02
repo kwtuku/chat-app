@@ -1,18 +1,18 @@
 module Rooms
   class GroupsController < ApplicationController
     def new
-      @users_without_self = User.all - [current_user]
+      @other_users = User.all - [current_user]
     end
 
     def create
       other_users = User.where(id: params[:user_ids])
 
       if other_users.blank?
-        @users_without_self = User.all - [current_user]
+        @other_users = User.all - [current_user]
         flash.now[:alert] = '入力に問題があります。'
         render :new
       elsif other_users == [current_user]
-        @users_without_self = User.all - [current_user]
+        @other_users = User.all - [current_user]
         flash.now[:alert] = 'この操作は実行できません。'
         render :new
       else
