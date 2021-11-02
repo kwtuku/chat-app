@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.0
   node: circleci/node@2
+  browser-tools: circleci/browser-tools@1.2.3
 
 jobs:
   build:
@@ -11,6 +12,8 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
@@ -31,9 +34,12 @@ jobs:
       PGUSER: postgres
       PGPASSWORD: ""
       RAILS_ENV: test
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
     steps:
       - checkout
       - ruby/install-deps
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
