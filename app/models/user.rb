@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :rooms, through: :entries
 
+  validates :name, presence: true, length: { maximum: 30 }
+
   def find_or_create_direct_chat_with(other_user)
     raise 'Invalid argument' if other_user == self
 
