@@ -7,8 +7,18 @@
         <%= render 'devise/shared/error_messages', resource: resource %>
 
         <div class="mb-3">
+          <%= f.label :avatar, class: 'form-label' %>
+          <%= f.file_field :avatar, class: 'form-control', accept: 'image/jpg, image/jpeg, image/png, image/webp' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, autocomplete: 'name', class: 'form-control', required: true %>
+        </div>
+
+        <div class="mb-3">
           <%= f.label :email, class: 'form-label' %>
-          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', required: true %>
+          <%= f.email_field :email, autocomplete: 'email', class: 'form-control', required: true %>
         </div>
 
         <div class="mb-3">
@@ -31,7 +41,7 @@
         </div>
 
         <div class="d-grid">
-          <%= f.submit t('.update'), class: 'btn btn-success' %>
+          <%= f.submit t('.update'), class: 'btn btn-success', data: { rspec: 'update' } %>
         </div>
       <% end %>
 
