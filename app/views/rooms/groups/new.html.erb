@@ -1,29 +1,21 @@
-<div class="col">
-  <div class="card my-5">
-    <div class="card-body">
-      <%= form_with url: rooms_groups_path, local: true do |f| %>
-        <div class="row mb-3">
-          <%= f.collection_check_boxes(:user_ids, @other_users, :id, :email, include_hidden: false) do |b| %>
-            <div class="col-4">
-              <div class="form-check ps-0">
-                <%= b.check_box class: 'btn-check', data: { rspec: "rooms_groups_new_checkbox_#{b.object.id}" } %>
-                <%= b.label class: 'btn btn-outline-success' do %>
-                  <div class="row">
-                    <div class="col-4">
-                      <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
-                    </div>
-                    <div class="col-8 align-self-center text-start">
-                      <%= b.object.email %>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
+<%= form_with url: rooms_groups_path, local: true, class: 'mt-3' do |f| %>
+  <div class="row g-3">
+    <%= f.collection_check_boxes(:user_ids, @other_users, :id, :name, include_hidden: false) do |b| %>
+      <div class="col-2">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column align-items-center">
+            <div class="card-text">
+              <%= image_tag b.object.avatar.icon.url, class: 'img-fluid rounded-circle' %>
             </div>
-          <% end %>
+            <div class="card-text form-check my-auto">
+              <%= b.check_box class: 'form-check-input', data: { rspec: "rooms_groups_new_checkbox_#{b.object.id}" } %>
+              <%= b.label class: 'form-check-label text-break' %>
+            </div>
+          </div>
         </div>
-
-        <%= f.submit 'グループチャットを作成', class: 'btn btn-success', data: { rspec: 'create_group_chat' } %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
-</div>
+
+  <%= f.submit 'グループチャットを作成', class: 'btn btn-success my-3', data: { rspec: 'create_group_chat' } %>
+<% end %>
