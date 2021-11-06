@@ -171,7 +171,7 @@ RSpec.describe User, type: :model do
 
       it 'has correct name' do
         room = alice.create_group_chat_with(other_users)
-        expect(room.name).to eq [alice.id, bob.id, carol.id].sort.join(', ')
+        expect(room.name).to eq [alice, bob, carol].map(&:name).sort.join(', ')
       end
     end
   end

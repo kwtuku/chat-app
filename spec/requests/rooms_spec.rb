@@ -16,21 +16,26 @@ RSpec.describe 'Rooms', type: :request do
 
     context 'when signed in' do
       let(:alice) { create :user }
-      let!(:room_with_alice) do
-        entry = create :entry, user: alice
-        entry.room
+      let!(:room) do
+        bob = create :user
+        room = create :room, room_type: 'direct'
+        create :entry, room: room, user: alice
+        create :entry, room: room, user: bob
+        room
       end
 
-      before { sign_in alice }
+      before do
+        sign_in alice
+      end
 
       it 'returns a 200 response' do
         get root_path
         expect(response.status).to eq 200
       end
 
-      it 'shows rooms' do
+      it 'shows a room name' do
         get root_path
-        expect(response.body).to include "Room#{room_with_alice.id}（#{alice.id}）"
+        expect(response.body).to include room.name
       end
     end
   end

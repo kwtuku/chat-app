@@ -161,7 +161,7 @@ RSpec.describe 'Rooms::Groups', type: :request do
 
       it 'redirects to room_path' do
         post rooms_groups_path, params: room_group_params
-        room = Room.find_by(name: [alice.id, bob.id, carol.id].sort.join(', '))
+        room = Room.find_by(name: [alice, bob, carol].map(&:name).sort.join(', '))
         expect(response).to redirect_to room_path(room)
       end
 
