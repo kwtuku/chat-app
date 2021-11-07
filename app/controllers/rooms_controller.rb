@@ -1,5 +1,8 @@
 class RoomsController < ApplicationController
+  after_action :verify_authorized
+
   def index
+    authorize User
     @rooms = current_user.rooms.all
   end
 
