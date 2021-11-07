@@ -25,5 +25,7 @@ module App
       g.factory_bot false
       g.test_framework nil
     end
+
+    config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
   end
 end
