@@ -1,7 +1,10 @@
 class MessagesController < ApplicationController
+  after_action :verify_authorized
+
   def create
     @message = current_user.messages.new(message_params)
     @message.room_id = params[:room_id]
+    authorize @message
     @message.save
     ActionCable.server.broadcast 'room_channel', message: @message.template
   end
