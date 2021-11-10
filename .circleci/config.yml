@@ -42,7 +42,9 @@ jobs:
           cache-key: "yarn.lock"
       - run:
           name: Install imagemagick
-          command: sudo apt -y install imagemagick
+          command: |
+            sudo apt-get update
+            sudo apt-get install imagemagick
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
