@@ -12,6 +12,9 @@
         <ul class="navbar-nav">
           <% if user_signed_in? %>
             <li class="nav-item">
+              <%= link_to 'グループチャットを作成', new_rooms_group_path, class: "nav-link #{'active' if current_page?(new_rooms_group_path)}" %>
+            </li>
+            <li class="nav-item">
               <%= link_to 'ダイレクトチャットを作成', users_path, class: "nav-link #{'active' if current_page?(users_path)}" %>
             </li>
             <li class="nav-item">

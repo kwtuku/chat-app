@@ -41,6 +41,11 @@ jobs:
           pkg-manager: yarn
           cache-key: "yarn.lock"
       - run:
+          name: Install imagemagick
+          command: |
+            sudo apt-get update
+            sudo apt-get install imagemagick
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
@@ -49,6 +54,8 @@ jobs:
       - ruby/rspec-test
       - store_test_results:
           path: /tmp/test-results
+      - store_artifacts:
+          path: tmp/screenshots
 
 workflows:
   version: 2

@@ -23,10 +23,6 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
 
-Style/BlockComments:
-  Exclude:
-    - spec/spec_helper.rb
-
 Style/Documentation:
   Enabled: false
 

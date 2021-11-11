@@ -8,16 +8,20 @@
       <div class="card-body border-bottom">
         <div class="row">
           <div class="col-1 d-flex justify-content-center align-items-center">
-            <%= link_to rooms_path, data: { bs_toggle: 'tooltip', bs_placement: 'right' }, title: 'チャット一覧',
+            <%= link_to rooms_path, data: { bs_toggle: 'tooltip', bs_placement: 'bottom' }, title: 'チャット一覧',
               class: "w-100 text-center link-secondary" do %>
               <i class="fas fa-arrow-left"></i>
             <% end %>
           </div>
           <div class="col-1">
-            <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+            <% if @room.direct_chat? %>
+              <%= other_user_avatar(@room.users) %>
+            <% else %>
+              <img src="https://placehold.jp/300x300.png" class="img-fluid rounded-circle">
+            <% end %>
           </div>
           <div class="col-8 align-self-center">
-            <p class="mb-0">Room<%= @room.id %>（<%= @room.user_ids.join(', ') %>）</p>
+            <p class="mb-0"><%= @room.name %></p>
           </div>
         </div>
       </div>

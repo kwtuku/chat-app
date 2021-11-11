@@ -1,4 +1,4 @@
-<div class="col-md-7 col-lg-5">
+<div class="col-md-8 col-lg-6">
   <div class="card my-5">
     <div class="card-body">
       <h1 class="text-center">アカウント編集</h1>
@@ -7,31 +7,41 @@
         <%= render 'devise/shared/error_messages', resource: resource %>
 
         <div class="mb-3">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', required: true %>
+          <%= f.label :avatar, class: 'form-label' %>
+          <%= f.file_field :avatar, class: 'form-control', accept: 'image/jpg, image/jpeg, image/png, image/webp' %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :password %>
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, autocomplete: 'name', class: 'form-control', required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, autocomplete: 'email', class: 'form-control', required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password, class: 'form-label' %>
           <%= f.password_field :password, autocomplete: 'new-password', class: 'form-control' %>
 
           <div class="form-text"><%= t('.leave_blank_if_you_don_t_want_to_change_it') %></div>
         </div>
 
         <div class="mb-3">
-          <%= f.label :password_confirmation %>
+          <%= f.label :password_confirmation, class: 'form-label' %>
           <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control' %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :current_password %>
-          <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control', required: true %>
+          <%= f.label :current_password, class: 'form-label' %>
+          <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control', minlength: @minimum_password_length, maxlength: '128', required: true %>
 
           <div class="form-text"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></div>
         </div>
 
         <div class="d-grid">
-          <%= f.submit t('.update'), class: 'btn btn-success' %>
+          <%= f.submit t('.update'), class: 'btn btn-success', data: { rspec: 'update' } %>
         </div>
       <% end %>
 

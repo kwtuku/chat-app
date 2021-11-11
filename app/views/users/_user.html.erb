@@ -1,10 +1,20 @@
-<tr>
-  <th scope="row"><%= user.id %></th>
-  <td><%= user.email %></td>
-  <td>
-    <%= form_with url: rooms_directs_path do |f| %>
-      <%= hidden_field_tag :user_id, user.id %>
-      <%= f.submit 'Roomを作成', class: 'btn btn-success', data: { rspec: "create_direct_chat_with_#{user.id}" } %>
-    <% end %>
-  </td>
-</tr>
+<div class="col-2">
+  <div class="card h-100">
+    <div class="card-body d-flex flex-column align-items-center">
+      <div class="card-text">
+        <%= image_tag user.avatar.icon.url, class: 'img-fluid rounded-circle' %>
+      </div>
+      <div class="card-text text-break text-center my-auto">
+        <p>
+          <%= user.name %>
+        </p>
+      </div>
+      <div class="card-text">
+        <%= form_with url: rooms_directs_path do |f| %>
+          <%= hidden_field_tag :user_id, user.id %>
+          <%= f.submit 'メッセージを送信', class: 'btn btn-success', data: { rspec: "create_direct_chat_with_#{user.id}" } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

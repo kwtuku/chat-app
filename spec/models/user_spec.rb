@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(30) }
     it { is_expected.to validate_presence_of(:password) }
     it { is_expected.to validate_length_of(:password).is_at_least(6) }
   end
@@ -169,7 +171,7 @@ RSpec.describe User, type: :model do
 
       it 'has correct name' do
         room = alice.create_group_chat_with(other_users)
-        expect(room.name).to eq [alice.id, bob.id, carol.id].sort.join(', ')
+        expect(room.name).to eq [alice, bob, carol].map(&:name).sort.join(', ')
       end
     end
   end
