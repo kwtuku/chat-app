@@ -6,7 +6,9 @@ RSpec.describe 'AdditionalMessages', type: :system do
   let(:messages) { alice.messages.order(id: :DESC) }
 
   before do
+    bob = create :user
     create :entry, room: room, user: alice
+    create :entry, room: room, user: bob
     create_list :message, 101, room: room, user: alice
   end
 
