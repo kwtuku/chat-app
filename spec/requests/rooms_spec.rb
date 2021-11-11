@@ -34,7 +34,7 @@ RSpec.describe 'Rooms', type: :request do
 
       it 'does not render the other user room name' do
         get rooms_path
-        expect(response.body).not_to include room.name
+        expect(response.body).not_to include ApplicationController.helpers.room_name(room, alice)
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe 'Rooms', type: :request do
 
       it 'renders a room name' do
         get rooms_path
-        expect(response.body).to include room.name
+        expect(response.body).to include ApplicationController.helpers.room_name(room, alice)
       end
     end
   end
@@ -96,7 +96,7 @@ RSpec.describe 'Rooms', type: :request do
 
       it 'renders a room name' do
         get room_path(room)
-        expect(response.body).to include room.name
+        expect(response.body).to include ApplicationController.helpers.room_name(room, alice)
       end
     end
   end
