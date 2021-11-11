@@ -20,7 +20,8 @@ class User < ApplicationRecord
   end
 
   def create_direct_chat_with(other_user, slug)
-    new_room = rooms.create!(name: other_user.name, room_type: 'direct', slug: slug)
+    name = [self, other_user].map(&:name).sort.join(', ')
+    new_room = rooms.create!(name: name, room_type: 'direct', slug: slug)
     other_user.entries.create!(room_id: new_room.id)
     new_room
   end
