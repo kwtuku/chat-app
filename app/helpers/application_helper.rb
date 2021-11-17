@@ -9,8 +9,23 @@ module ApplicationHelper
     end
   end
 
-  def other_user_avatar(users)
-    other_user = (users - [current_user]).first
-    image_tag other_user.avatar.icon.url, class: 'img-fluid rounded-circle'
+  def other_user(room, user)
+    (room.users - [user]).first
+  end
+
+  def room_image_url(room, user)
+    if room.room_type == 'direct'
+      other_user(room, user).avatar.icon.url
+    else
+      'https://placehold.jp/150x150.png'
+    end
+  end
+
+  def room_name(room, user)
+    if room.room_type == 'direct'
+      other_user(room, user).name
+    else
+      room.name
+    end
   end
 end

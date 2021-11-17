@@ -2,14 +2,12 @@
   <div class="card-body border-bottom">
     <div class="row">
       <div class="col-2">
-        <% if room.direct_chat? %>
-          <%= other_user_avatar(room.users) %>
-        <% else %>
-          <img src="https://placehold.jp/300x300.png" class="img-fluid rounded-circle">
-        <% end %>
+        <%= image_tag room_image_url(room, current_user), class: 'img-fluid rounded-circle' %>
       </div>
       <div class="col-8 align-self-center">
-        <p class="mb-0"><%= room.name %></p>
+        <p class="mb-0">
+          <%= room_name(room, current_user) %>
+        </p>
       </div>
     </div>
   </div>
