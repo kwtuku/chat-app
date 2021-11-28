@@ -1,16 +1,16 @@
 <%= form_with url: rooms_groups_path, local: true, class: 'mt-3' do |f| %>
   <div class="row g-3">
     <%= f.collection_check_boxes(:user_ids, @other_users, :id, :name, include_hidden: false) do |b| %>
-      <div class="col-4">
+      <div class="col-sm-6 col-lg-4">
         <div class="card">
           <div class="card-body">
             <div class="card-text form-check">
               <%= b.check_box class: 'form-check-input', data: { rspec: "rooms_groups_new_checkbox_#{b.object.id}" } %>
               <%= b.label class: 'form-check-label row align-items-center' do %>
-                <span class="col-2">
+                <span class="col-2 col-sm-3 col-md-2">
                   <%= image_tag b.object.avatar.icon.url, class: 'img-fluid rounded-circle' %>
                 </span>
-                <span class="col-10 ps-0">
+                <span class="col-10 col-sm-9 ps-0 text-truncate">
                   <%= b.object.name %>
                 </span>
               <% end %>
