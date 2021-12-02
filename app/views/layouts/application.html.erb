@@ -14,24 +14,24 @@
   </head>
 
   <body>
-    <div class="row m-0">
-      <div class="d-none d-lg-block col-lg-1 p-0 vh-100">
+    <%= render 'layouts/flash_messages' unless (controller.controller_name == 'sessions' && controller.action_name == 'new') %>
+
+    <header class="d-lg-none sticky-top">
+      <%= render 'layouts/navbar' %>
+    </header>
+
+    <main class="row m-0">
+      <div class="d-none d-lg-block col-lg-1 p-0">
         <%= render 'layouts/sidebar' %>
       </div>
 
-      <div class="col-12 col-lg-11 p-0 vh-100 overflow-auto">
-        <div class="d-lg-none">
-          <%= render 'layouts/header' %>
-        </div>
-
-        <%= render 'layouts/flash_messages' unless (controller.controller_name == 'sessions' && controller.action_name == 'new') %>
-
-        <main class="container">
+      <div class="col-12 col-lg-11 p-0">
+        <div class="container">
           <div class="row justify-content-center">
             <%= yield %>
           </div>
-        </main>
+        </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>
