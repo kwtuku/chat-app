@@ -1,14 +1,14 @@
-<div class="text-break mb-5" data-infinite-scroll-item="message" data-rspec="message_<%= message.id %>">
+<div class="text-break mt-3" data-infinite-scroll-item="message" data-rspec="message_<%= message.id %>">
   <div class="row">
     <% if message.user != current_user %>
-      <div class="col-1 align-self-end">
-        <img src="https://placehold.jp/300x300.png" alt="avatar" class="img-fluid">
+      <div class="col-2 col-sm-1 align-self-end">
+        <%= image_tag message.user.avatar.icon.url, class: 'img-fluid rounded-circle' %>
       </div>
     <% end %>
     <div class="col-8 <%= 'offset-4' if message.user == current_user %>">
       <div class="card">
         <div class="card-body <%= 'bg-light' if message.user == current_user %>">
-          <%= simple_format(h message.content) %>
+          <%= simple_format(h(message.content), class: 'mb-0') %>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
 
   <div class="row">
     <div class="col-8 <%= message.user == current_user ? 'offset-4' : 'offset-1' %>">
-      <p>
+      <p class="mb-0">
         <%= message_created_at(message.created_at) %>
       </p>
     </div>

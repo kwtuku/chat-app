@@ -1,6 +1,6 @@
 <div class="card my-2 room-card">
   <div class="row h-100">
-    <div class="col-lg-4 d-none d-lg-block border-end px-0 overflow-auto">
+    <div class="col-lg-4 d-none d-lg-block h-100 overflow-auto px-0 border-end">
       <%= render @rooms %>
     </div>
 
@@ -13,7 +13,7 @@
               <i class="fas fa-arrow-left"></i>
             <% end %>
           </div>
-          <div class="col-1">
+          <div class="col-2 col-sm-1">
             <%= image_tag room_image_url(@room, current_user), class: 'img-fluid rounded-circle' %>
           </div>
           <div class="col-8 align-self-center">
@@ -24,9 +24,9 @@
         </div>
       </div>
 
-      <div class="container py-1 overflow-auto h-100 position-relative" id="scrollable-area" data-infinite-scroll="<%= @messages.size == 50 %>"
+      <div class="position-relative h-100 overflow-auto" id="scrollable-area" data-infinite-scroll="<%= @messages.size == 50 %>"
         data-rspec="scrollable_area">
-        <div class="position-absolute room-card__message-container" id="message-container">
+        <div class="position-absolute container" id="message-container">
           <% if @messages.size == 50 %>
             <%= link_to room_additional_messages_path(@room, message_count: @messages.size), remote: true, id: 'loading-animation' do %>
               <div class="loading-animation"></div>
@@ -40,7 +40,8 @@
         <%= form_with model: [@room, @message], local: false do |f| %>
           <div class="row">
             <div class="col-9 col-md-10">
-              <%= f.text_area :content, rows: '1', maxlength: '500', required: true, class: 'form-control msg-footer__textarea js-resize-textarea' %>
+              <%= f.text_area :content, rows: '1', maxlength: '500', required: true,
+                class: 'form-control message-footer__textarea js-resize-textarea' %>
             </div>
 
             <div class="col-2 align-self-center">
