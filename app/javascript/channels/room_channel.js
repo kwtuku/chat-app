@@ -13,7 +13,13 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      messageContainer.insertAdjacentHTML('beforeend', data['message'])
+      const currentUserId = Number(document.querySelector('[data-current-user-id]').dataset.currentUserId);
+
+      if (currentUserId === data['message_user_id']) {
+        messageContainer.insertAdjacentHTML('beforeend', data['message'])
+      } else {
+        messageContainer.insertAdjacentHTML('beforeend', data['other_user_message'])
+      }
     }
   })
 })

@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
     @message.room_id = params[:room_id]
     authorize @message
     @message.save
-    ActionCable.server.broadcast 'room_channel', message: @message.template
+    ActionCable.server.broadcast 'room_channel', message_user_id: @message.user_id, message: @message.partial_for_current_user, other_user_message: @message.partial_for_other_user
   end
 
   private
