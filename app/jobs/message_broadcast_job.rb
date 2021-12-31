@@ -16,8 +16,8 @@ class MessageBroadcastJob < ApplicationJob
     ApplicationController.renderer.render(
       partial: 'messages/current_user_message',
       locals: {
-        message: message,
-      },
+        message: message
+      }
     )
   end
 
@@ -25,8 +25,8 @@ class MessageBroadcastJob < ApplicationJob
     ApplicationController.renderer.render(
       partial: 'messages/other_user_message',
       locals: {
-        message: message,
-      },
+        message: message
+      }
     )
   end
 end
