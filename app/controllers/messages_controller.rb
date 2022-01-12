@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
     @message.room_id = params[:room_id]
     authorize @message
     @message.save
-    ActionCable.server.broadcast 'room_channel', message: @message.template
+    MessageBroadcastJob.perform_later(@message)
   end
 
   private

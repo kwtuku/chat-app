@@ -1,0 +1,22 @@
+<div class="text-break mt-3" data-infinite-scroll-item="message" data-rspec="message_<%= message.id %>">
+  <div class="row">
+    <div class="col-2 col-sm-1 align-self-end">
+      <%= image_tag message.user.avatar.icon.url, class: 'img-fluid rounded-circle' %>
+    </div>
+    <div class="col-8">
+      <div class="card">
+        <div class="card-body">
+          <%= simple_format(h(message.content), class: 'mb-0') %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8 offset-1">
+      <p class="mb-0">
+        <%= message_created_at(message.created_at) %>
+      </p>
+    </div>
+  </div>
+</div>
